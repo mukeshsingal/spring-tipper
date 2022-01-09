@@ -1,4 +1,4 @@
-package com.courses.api.springboot.geeksforgeeks.parser;
+package com.courses.api.springboot.geeksforgeeks.database.model.dto;
 
 public class PostRequestBody {
     private String url;

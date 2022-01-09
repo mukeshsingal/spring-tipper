@@ -1,4 +1,4 @@
-package com.courses.api.springboot.geeksforgeeks.parser.parser.impl;
+package com.courses.api.springboot.geeksforgeeks.parser.impl;
 
 public class ParserFactory {
     private static BaseParser simpleParser = new SimpleQuestionParser();

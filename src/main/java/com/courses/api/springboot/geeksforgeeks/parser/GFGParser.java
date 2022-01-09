@@ -1,8 +1,8 @@
-package com.courses.api.springboot.geeksforgeeks.parser.parser;
+package com.courses.api.springboot.geeksforgeeks.parser;
 
-import com.courses.api.springboot.geeksforgeeks.parser.dto.Question;
-import com.courses.api.springboot.geeksforgeeks.parser.parser.impl.BaseParser;
-import com.courses.api.springboot.geeksforgeeks.parser.parser.impl.ParserFactory;
+import com.courses.api.springboot.geeksforgeeks.database.model.dao.question.Question;
+import com.courses.api.springboot.geeksforgeeks.parser.impl.BaseParser;
+import com.courses.api.springboot.geeksforgeeks.parser.impl.ParserFactory;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class GFGParser {
-
 
     public static HashMap<String, List<Question>> getAllQuestions(String mainPageUrl) {
 
@@ -84,7 +83,6 @@ public class GFGParser {
         }
         return null;
     }
-
 
     public static Question getQuestion(String url) {
         BaseParser baseQuestion = ParserFactory.getBaseQuestionParser(url);

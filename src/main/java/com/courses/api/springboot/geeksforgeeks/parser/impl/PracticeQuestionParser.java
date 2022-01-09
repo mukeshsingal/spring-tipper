@@ -1,13 +1,19 @@
-package com.courses.api.springboot.geeksforgeeks.parser.parser.impl;
+package com.courses.api.springboot.geeksforgeeks.parser.impl;
 
-import com.courses.api.springboot.geeksforgeeks.parser.dto.*;
-
+import com.courses.api.springboot.geeksforgeeks.database.model.dao.question.CompanyTag;
+import com.courses.api.springboot.geeksforgeeks.database.model.dao.question.DifficultyLevel;
+import com.courses.api.springboot.geeksforgeeks.database.model.dao.question.TopicTag;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.*;
 
 public class PracticeQuestionParser implements BaseParser {
+
+    @Override
+    public String getSolutionDescription(Element document) {
+        return null;
+    }
 
     public String getQuestionTitle(Element document) {
         Elements entryContent = document.getElementsByClass("problemTitle");

@@ -1,16 +1,15 @@
-package com.courses.api.springboot.geeksforgeeks.parser.parser.impl;
+package com.courses.api.springboot.geeksforgeeks.parser.impl;
 
-import com.courses.api.springboot.geeksforgeeks.parser.dto.Question;
-import com.courses.api.springboot.geeksforgeeks.parser.dto.Status;
-import com.courses.api.springboot.geeksforgeeks.parser.dto.CompanyTag;
-import com.courses.api.springboot.geeksforgeeks.parser.dto.TopicTag;
+import com.courses.api.springboot.geeksforgeeks.database.model.dao.question.CompanyTag;
+import com.courses.api.springboot.geeksforgeeks.database.model.dao.question.ProgressStatus;
+import com.courses.api.springboot.geeksforgeeks.database.model.dao.question.Question;
+import com.courses.api.springboot.geeksforgeeks.database.model.dao.question.TopicTag;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 public interface BaseParser {
@@ -23,12 +22,12 @@ public interface BaseParser {
             question.setTitle(getQuestionTitle(document));
             question.setCompanyTags(getCompanyTags(document));
             question.setTopicTags(getQuestionTags(document));
-
-            HashMap<String, String> map = getDifficultyLevel(document);
-            question.setDifficultyLevel(map.get("Difficulty"));
-            question.setQuestionRating(map.get("questionRating"));
-            question.setUrl(url);
-            question.setStatus(Status.NOT_DONE.toString());
+            question.setSolutionDescription(getSolutionDescription(document));
+//            HashMap<String, String> map = getDifficultyLevel(document);
+//            question.setDifficultyLevel(map.get("Difficulty"));
+//            question.setQuestionRating(map.get("questionRating"));
+            question.setProblemUrl(url);
+            question.setStatus(ProgressStatus.NOT_DONE);
 
         } catch (IOException e) {
             System.out.println(e.getLocalizedMessage());
@@ -37,6 +36,8 @@ public interface BaseParser {
 
         return question;
     }
+
+    String getSolutionDescription(Element document);
 
     String getQuestionTitle(Element docuement);
 
