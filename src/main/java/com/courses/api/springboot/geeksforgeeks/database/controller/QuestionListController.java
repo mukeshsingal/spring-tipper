@@ -13,7 +13,7 @@ import java.util.*;
 @RestController
 public class QuestionListController {
 
-    private static final String LIST_ENDPOINT = "/lists";
+    private static final String LIST_ENDPOINT = "/api/lists";
     @Autowired
     QuestionListRepository questionListRepository;
     @Autowired

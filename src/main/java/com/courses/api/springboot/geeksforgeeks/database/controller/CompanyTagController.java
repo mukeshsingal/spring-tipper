@@ -15,7 +15,7 @@ public class CompanyTagController {
     public CompanyTagRepository tagRepository;
 
     @CrossOrigin
-    @GetMapping("/companyTags")
+    @GetMapping("/api/companyTags")
     public List<CompanyTag> getAllQuestionUrls() {
         List<CompanyTag> companyTags = new ArrayList<CompanyTag>();
         tagRepository.findAll().forEach(companyTags::add);

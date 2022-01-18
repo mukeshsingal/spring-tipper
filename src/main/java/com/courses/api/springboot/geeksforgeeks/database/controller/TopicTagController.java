@@ -17,7 +17,7 @@ public class TopicTagController {
     public TopicTagRepository tagRepository;
 
     @CrossOrigin
-    @GetMapping("/topicTags")
+    @GetMapping("/api/topicTags")
     public List<TopicTag> getAllQuestionUrls() {
         List<TopicTag> companyTags = new ArrayList<TopicTag>();
         tagRepository.findAll().forEach(companyTags::add);

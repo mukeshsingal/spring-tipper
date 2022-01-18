@@ -1,0 +1,53 @@
+article ol {
+    list-style: auto;
+}
+
+article ul  {
+    list-style: disc
+}
+article strong {
+    line-height: 2;
+}
+
+/* .articlecard {
+    background: #001529;;
+    color: rgba(255, 255, 255, 0.7);
+}
+article h1, h2 {
+    color: rgba(255, 255, 255, 0.9)
+} */
+
+
+.actionbutton {
+    width: 40px;
+    height: 40px;
+    padding: 0px;
+    float: right;
+    margin: 3px;
+}
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+body:fullscreen {
+    overflow: scroll !important;
+  }
+  body:-ms-fullscreen {
+    overflow: scroll !important;
+  }
+  body:-webkit-full-screen {
+    overflow: scroll !important;
+  }
+  body:-moz-full-screen {
+    overflow: scroll !important;
+  }
+

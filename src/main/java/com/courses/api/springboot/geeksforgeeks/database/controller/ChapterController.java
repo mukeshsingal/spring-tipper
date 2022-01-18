@@ -14,7 +14,7 @@ import java.util.Optional;
 //TODO: We can have request mapping at class level also
 public class ChapterController {
 
-    private static final String CHAPTER_ROOT = "/chapters";
+    private static final String CHAPTER_ROOT = "/api/chapters";
     @Autowired
     ChapterRepository chapterRepository;
 

@@ -20,7 +20,7 @@ public class GFGController {
     String questionUrl2 = "https://practice.geeksforgeeks.org/problems/kadanes-algorithm/0";
 
     @CrossOrigin
-    @RequestMapping(value = "/parsers/parse-solution/{questionId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/parsers/parse-solution/{questionId}", method = RequestMethod.POST)
     public Question getAllQuestionUrls(@RequestBody SolutionUrlRequestBody body, @PathVariable String questionId) {
 
         Question dbQuestion = questionRepository.findById(questionId).get();

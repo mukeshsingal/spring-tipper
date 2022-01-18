@@ -25,8 +25,10 @@ public class QuestionController {
     @Autowired
     public TopicTagRepository topicTagRepository;
 
+    private static final String CHAPTER_ROOT = "/api/questions";
+
     @CrossOrigin
-    @GetMapping("/questions")
+    @GetMapping(CHAPTER_ROOT)
     public List<QuestionDTO> getAllQuestionUrls() {
         List<QuestionDTO> questions = new ArrayList<>();
         gfgRepository.findByIsDeleted(false).forEach(question -> {
@@ -36,7 +38,7 @@ public class QuestionController {
     }
 
     @CrossOrigin
-    @GetMapping("/questions/favourite")
+    @GetMapping(CHAPTER_ROOT + "/favourite")
     public List<QuestionDTO> getAllFavourite() {
         List<QuestionDTO> questions = new ArrayList<>();
         gfgRepository.findByIsFavourite(true).forEach(question -> {
@@ -46,13 +48,13 @@ public class QuestionController {
     }
 
     @CrossOrigin
-    @GetMapping("/questions/byId/{id}")
+    @GetMapping(CHAPTER_ROOT + "/byId/{id}")
     public Question getQuestionById(@PathVariable String id) {
         return gfgRepository.findById(id).get();
     }
 
     @CrossOrigin
-    @GetMapping("/questions/findByCompanyTag/{name}")
+    @GetMapping(CHAPTER_ROOT + "/findByCompanyTag/{name}")
     public List<Question> getQuestionByCompanyTag(@PathVariable String name) {
         List<Question> questions = new ArrayList<Question>();
         Optional<CompanyTag> tag = tagRepository.findByName(name);
@@ -64,7 +66,7 @@ public class QuestionController {
 
 
     @CrossOrigin
-    @GetMapping("/questions/findByTopicTag/{name}")
+    @GetMapping(CHAPTER_ROOT + "/findByTopicTag/{name}")
     public List<Question> getQuestionByTopicTag(@PathVariable String name) {
         List<Question> questions = new ArrayList<Question>();
         Optional<TopicTag> tag = topicTagRepository.findByName(name);
@@ -75,7 +77,7 @@ public class QuestionController {
     }
 
     @CrossOrigin
-    @RequestMapping(method = RequestMethod.POST, value ="/questions/create")
+    @RequestMapping(method = RequestMethod.POST, value = CHAPTER_ROOT + "/create")
     public Question createQuestion(@RequestBody Question question) {
         String title = question.getTitle();
 
@@ -112,7 +114,7 @@ public class QuestionController {
     }
 
     @CrossOrigin
-    @RequestMapping(method = RequestMethod.PUT, value ="/questions/{id}/done")
+    @RequestMapping(method = RequestMethod.PUT, value =CHAPTER_ROOT + "/{id}/done")
     public Question markDone(@PathVariable String id) {
         Question question = this.gfgRepository.findById(id).get();
         if(question.getStatus() == ProgressStatus.DONE){
@@ -126,7 +128,7 @@ public class QuestionController {
     }
 
     @CrossOrigin
-    @RequestMapping(method = RequestMethod.PUT, value ="/questions/{id}/favourite")
+    @RequestMapping(method = RequestMethod.PUT, value =CHAPTER_ROOT + "/{id}/favourite")
     public Question markFavourite(@PathVariable String id) {
         Question question = this.gfgRepository.findById(id).get();
         if(question.isFavourite()){
@@ -140,7 +142,7 @@ public class QuestionController {
     }
 
     @CrossOrigin
-    @RequestMapping(method = RequestMethod.PUT, value ="/questions/{id}/delete")
+    @RequestMapping(method = RequestMethod.PUT, value =CHAPTER_ROOT + "/{id}/delete")
     public Question markDeleted(@PathVariable String id) {
         Question question = this.gfgRepository.findById(id).get();
         if(question.isDeleted()){
@@ -155,13 +157,13 @@ public class QuestionController {
 
 
     @CrossOrigin
-    @RequestMapping(method = RequestMethod.PUT, value ="/questions/{id}/deletepermanent")
+    @RequestMapping(method = RequestMethod.PUT, value =CHAPTER_ROOT + "/{id}/deletepermanent")
     public void deletePermanent(@PathVariable String id) {
         this.gfgRepository.deleteById(id);
     }
 
     @CrossOrigin
-    @RequestMapping(method = RequestMethod.DELETE, value ="/questions")
+    @RequestMapping(method = RequestMethod.DELETE, value = CHAPTER_ROOT)
     public void deletePermanent() {
         this.gfgRepository.deleteAll();
     }
