@@ -30,7 +30,7 @@ public class QuestionList {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "question_list_join", joinColumns = @JoinColumn(name = "question_list_id"), inverseJoinColumns = @JoinColumn(name = "question_id"))
-    private List<Question> list;
+    public List<Question> list;
     private ProgressStatus status;
 
     @OneToOne(cascade = CascadeType.ALL)

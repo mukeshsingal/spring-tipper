@@ -43,11 +43,10 @@ public class Question {
     @JoinTable(name = "topic_tag_join", joinColumns = {@JoinColumn(name = "question_id")}, inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<TopicTag> topicTags;
 
-    private Date created;
-    private Date updated;
+    public Date created;
+    public Date updated;
 
     private boolean isDeleted;
-
     private boolean isFavourite;
 
 

@@ -18,12 +18,11 @@
       },
     ],
   },
-  
+ 
   {
     path: '/coding',
     name: 'Coding',
     icon: 'apartment',
-  
     routes: [
       {
         path: '/coding/question/:id',
@@ -38,11 +37,7 @@
         path: '/coding/datastructure/:id',
         component: './Coding/DataStructure',
       },
-      {
-        path: '/coding/algorithm',
-        name: 'Algorithm',
-        component: './Coding/Algorithm',
-      },
+    
       {
         path: '/coding/questions',
         name: 'All',
@@ -53,6 +48,28 @@
         name: 'Favorite',
         component: './Coding/Favourite',
       }
+    ]
+  },
+  {
+    path: '/jobs/',
+    name: 'Jobs',
+    icon: 'apartment',
+    routes: [
+      {
+        path: '/jobs/dashboard',
+        name: 'Dashboard',
+        component: './Jobs/JobDashboard',
+      },
+      {
+        path: '/jobs/unsaved',
+        name: 'New',
+        component: './Jobs/NewJobs',
+      },
+      {
+        path: '/jobs/saved',
+        name: 'Saved',
+        component: './Jobs/SavedJobs',
+      },
     ]
   },
   {
