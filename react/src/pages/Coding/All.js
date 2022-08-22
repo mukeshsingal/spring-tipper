@@ -19,7 +19,7 @@ import {
 import React, { Fragment, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import QuestionService from './QuestionService';
-import { MediumOutlined, RightCircleOutlined, SortAscendingOutlined, SyncOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { MediumOutlined, PlusOutlined, RightCircleOutlined, SortAscendingOutlined, SyncOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { MessageOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 const style = {
@@ -33,6 +33,7 @@ const { SubMenu } = Menu;
 const { Option } = Select;
 let timeout;
 let currentValue;
+
 const DS = [
   'Array',
   'Stack',
@@ -47,57 +48,56 @@ const DS = [
   'Matrix',
   'Strings',
 ];
-{
-  /*
-   */
-} // const extra = (
-//   <Fragment>
-//     <div
-//       style={{
-//         fontSize: 16,
-//         color: 'rgba(0, 0, 0, 0.85)',
-//         fontWeight: '500',
-//         marginBottom: 16,
-//       }}
-//     >
-//       <FormattedMessage
-//         id="app.result.error.hint-title"
-//         defaultMessage="The content you submitted has the following error:"
-//       />
-//     </div>
-//     <div style={{ marginBottom: 16 }}>
-//       <Icon style={{ color: '#f5222d', marginRight: 8 }} type="close-circle-o" />
-//       <FormattedMessage
-//         id="app.result.error.hint-text1"
-//         defaultMessage="Your account has been frozen"
-//       />
-//       <a style={{ marginLeft: 16 }}>
-//         <FormattedMessage id="app.result.error.hint-btn1" defaultMessage="Thaw immediately" />
-//         <Icon type="right" />
-//       </a>
-//     </div>
-//     <div>
-//       <Icon style={{ color: '#f5222d', marginRight: 8 }} type="close-circle-o" />
-//       <FormattedMessage
-//         id="app.result.error.hint-text2"
-//         defaultMessage="Your account is not yet eligible to apply"
-//       />
-//       <a style={{ marginLeft: 16 }}>
-//         <FormattedMessage id="app.result.error.hint-btn2" defaultMessage="Upgrade immediately" />
-//         <Icon type="right" />
-//       </a>
-//     </div>
-//   </Fragment>
-// );
-// const actions = (
-//   <Button type="primary">
-//     <FormattedMessage id="app.result.error.btn-text" defaultMessage="Return to modify" />
-//   </Button>
-// );
+
+const FAV_TAGS = [
+  "Arrays",
+  "Graph",
+  "BFS",
+  "DFS",
+  "Heap",
+  "Binary Search",
+  "Binary Search Tree",
+  "Queue",
+  "Stack",
+  "Strings",
+  "Tree",
+  "Sorting",
+  "Searching",
+]
+
+
+const EXCLUDED_TAGS = [
+  "CPP",
+  "CPP-Control-Flow",
+  "Class",
+  "Cpp-operator",
+  "Cpp-pointers",
+  "Cpp-strings",
+  "Data Type",
+  "Java-Class and Object",
+  "Java-Control-Flow",
+  "Java-Collections",
+  "OOP",
+  "Pointers",
+  "Operating System",
+  "Operators",
+  "Physics",
+  "STL",
+  "Structures",
+  "Date-Time",
+  "Java-Operators",
+  "Functions",
+  "Practice-Problems",
+  "Machine Learning",
+  "Java-BigInteger",
+  "Operating Systems"
+]
+
 
 export default withRouter((props) => {
   var restService = new QuestionService();
   const [data, setData] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
   const [processingData, setProcessingData] = React.useState([]);
   const [companyTagData, setCompanyTagData] = React.useState([]);
   const [topicTagData, setTopicTagData] = React.useState([]);
@@ -113,6 +113,8 @@ export default withRouter((props) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [listName, setListName] = React.useState("");
 
+  const [listData, setListData] = React.useState([]);
+
   let history = useHistory();
 
   function fetchCompanyTags() {
@@ -125,6 +127,18 @@ export default withRouter((props) => {
         });
         console.log('Data 2', data2);
         setCompanyTagData(data2);
+      })
+      .catch((error) => {
+        message.error('Failed to Fetch the data.');
+      });
+  }
+
+  function fetchListData() {
+    restService
+      .getAllLists()
+      .then((data) => {
+        setListData(data);
+        console.log("ListData", data);
       })
       .catch((error) => {
         message.error('Failed to Fetch the data.');
@@ -152,6 +166,7 @@ export default withRouter((props) => {
         setData(data);
         setProcessingData(data);
         setFilters();
+        setLoading(false);
       })
       .catch((error) => {
         message.error('Failed to Fetch the data.');
@@ -162,6 +177,8 @@ export default withRouter((props) => {
     fetchQuestionBasedOnFilter();
     fetchCompanyTags();
     fetchTopicTags();
+    fetchListData();
+    
   }, []);
 
   function setFilters() {
@@ -420,6 +437,7 @@ export default withRouter((props) => {
                   setStatusFilter('');
                   setTopicTagFilter('');
                   setDifficultyFilter("")
+                  setData(processingData);
                   const queryParams = props.location.query;
                   delete queryParams.difficulty;
                   history.replace('/coding/questions', queryParams);
@@ -429,8 +447,6 @@ export default withRouter((props) => {
               </Button>
               <Button onClick={showModal}><UnorderedListOutlined /></Button>
               <Modal title="Create List"
-
-
                 visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}
                 footer={[
                   <Button key="back" onClick={handleCancel}>
@@ -464,8 +480,17 @@ export default withRouter((props) => {
 
               </Modal>
             </div>
+            
+            {topicTagFilter ? (<Tag color="green"> {topicTagFilter}</Tag>): ""}
+            {companyTagFilter ? (<Tag color="green"> {companyTagFilter}</Tag>): ""}
+            {difficultyFilter ? (<Tag color="green"> {difficultyFilter}</Tag>): ""}
+            {statusFilter ? (<Tag color="green"> {statusFilter}</Tag>): ""}
+
             <Divider />
-            {data == undefined || data.length == 0 ? (
+
+            {data.length == 0 && loading == false ? <Empty></Empty> : ""}
+
+            {loading ? (
               <div
                 style={{
                   width: '100%',
@@ -489,7 +514,7 @@ export default withRouter((props) => {
                     style={{
                       padding: '3px',
                       paddingLeft: '10px',
-                      margin: '3px',
+                      margin: '3px'
                     }}
                     key={question.id}
                   >
@@ -529,7 +554,11 @@ export default withRouter((props) => {
                         {question.title.replace('- GeeksforGeeks', '')}
                       </Link>
                     </Popover>
-
+                    <Button size={"small"} style={{
+                            float: 'right',
+                          }} icon={<PlusOutlined/>}>
+                            </Button>
+                    
                     {question.difficultyLevel ? (
                       <div
                         style={{
@@ -554,6 +583,7 @@ export default withRouter((props) => {
                         </Tag>
                       );
                     })}
+                    
                   </li>
                 );
               })}
@@ -561,22 +591,48 @@ export default withRouter((props) => {
           </Card>
         </Col>
         <Col className="gutter-row" span={6}>
+        <Card bordered={false}>
+            <h3>Topics</h3>
+            <span className="avatar-item">
+              {listData?.map((d) => (
+                <Tag
+                style={{
+
+                  margin: '3px',
+                }}
+                onClick={() => {
+                  // setSelectedCompanyTag(d.name)
+                  setData(d.list);
+                }}
+                color={FAV_TAGS.indexOf(d.name) != -1 ? "green" : ""}
+                key={d.listName}
+              >
+                {d.listName}
+              </Tag>)
+                
+              )}
+            </span>
+          </Card>
+          <br/>
           <Card bordered={false}>
             <h3>Topics</h3>
             <span className="avatar-item">
               {topicTagData?.map((d) => (
-                <Tag
+                (EXCLUDED_TAGS.indexOf(d.name) == -1 ? (<Tag
                   style={{
+
                     margin: '3px',
                   }}
                   onClick={() => {
                     // setSelectedCompanyTag(d.name)
                     setTopicTagFilter(d.name);
                   }}
+                  color={FAV_TAGS.indexOf(d.name) != -1 ? "green" : ""}
                   key={d.name}
                 >
                   {d.name}
-                </Tag>
+                </Tag>):"")
+                
               ))}
             </span>
           </Card>

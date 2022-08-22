@@ -1,8 +1,10 @@
 import { configConsumerProps } from "antd/lib/config-provider";
 
+var host = "http://localhost:8081"
+
 class QuestionService {
   async getAll() {
-    return fetch("/api/questions", {
+    return fetch(host + "/api/questions", {
       headers:{
         "accepts":"application/json"
     }
@@ -18,7 +20,7 @@ class QuestionService {
       });
   }
   async getAllFavourite() {
-    return fetch("/api/questions/favourite")
+    return fetch(host + "/api/questions/favourite")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -31,7 +33,7 @@ class QuestionService {
   }
 
   async getCompanyTags() {
-    return fetch("/api/companyTags")
+    return fetch(host + "/api/companyTags")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -43,7 +45,7 @@ class QuestionService {
       });
   }
   async getTopicTags() {
-    return fetch("/api/topicTags")
+    return fetch(host + "/api/topicTags")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -55,7 +57,7 @@ class QuestionService {
       });
   }
   async getAllLists() {
-    return fetch("/api/lists/")
+    return fetch(host + "/api/lists/")
       .then((response) => response.json())
       .then((data) => {
         return data;
@@ -66,7 +68,7 @@ class QuestionService {
   }
 
   async getListsByChapter(chapterName) {
-    return fetch("/api/lists/byChapter/" + chapterName)
+    return fetch(host + "/api/lists/byChapter/" + chapterName)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -77,6 +79,36 @@ class QuestionService {
         throw error;
       });
   }
+
+  
+  async addQuestionToList(id, questions) {
+
+    const requestOptions = {
+      method: 'POST',
+      body: JSON.stringify(
+        {
+          "list": questions,
+          "id": id
+        }
+      ),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+
+    };
+
+    return fetch(host + "/api/lists/addQuestions", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("ListData", data);
+        return data;
+      })
+      .catch((error) => {
+        console.log("ListData error", error);
+        throw error;
+      });
+  }
+
   async createList(listName, questions) {
 
     const requestOptions = {
@@ -93,7 +125,7 @@ class QuestionService {
 
     };
 
-    return fetch("/api/lists", requestOptions)
+    return fetch(host + "/api/lists", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log("ListData", data);
@@ -108,7 +140,7 @@ class QuestionService {
 
 
   async getById(id) {
-    return fetch("/api/questions/byId/" + id)
+    return fetch(host + "/api/questions/byId/" + id)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -124,7 +156,7 @@ class QuestionService {
     const requestOptions = {
       method: 'PUT'
     };
-    return fetch("/api/questions/" + id + "/delete", requestOptions)
+    return fetch(host + "/api/questions/" + id + "/delete", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -140,7 +172,7 @@ class QuestionService {
     const requestOptions = {
       method: 'PUT'
     };
-    return fetch("/api/questions/" + id + "/favourite", requestOptions)
+    return fetch(host + "/api/questions/" + id + "/favourite", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -156,7 +188,7 @@ class QuestionService {
     const requestOptions = {
       method: 'PUT'
     };
-    return fetch("/api/questions/" + id + "/done", requestOptions)
+    return fetch(host + "/api/questions/" + id + "/done", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -182,7 +214,7 @@ class QuestionService {
       },
 
     };
-    return fetch("/api/parsers/parse-solution/" + id, requestOptions)
+    return fetch(host + "/api/parsers/parse-solution/" + id, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

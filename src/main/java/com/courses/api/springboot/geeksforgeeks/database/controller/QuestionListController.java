@@ -38,8 +38,8 @@ public class QuestionListController {
     @GetMapping(LIST_ENDPOINT+"/byChapter/{chapterName}")
     public List<QuestionList> getListsByChapterName(@PathVariable String chapterName) {
         List<QuestionList> questions = new ArrayList<>();
-        questionListRepository.findByChapter_ChapterNameOrderByPositionAsc(chapterName).forEach(questionList -> {
-            Collections.sort(questionList.getList(), (Question a, Question b) -> {
+        questionListRepository.findByChapter_ChapterNameOrderByPositionAsc(chapterName).forEach((QuestionList questionList) -> {
+            questionList.getList().sort((Question a, Question b) -> {
                 return a.getCreated().after(b.getCreated()) ? 1 : 0;
             });
             questions.add(questionList);
@@ -66,6 +66,29 @@ public class QuestionListController {
 
 
         this.questionListRepository.save(questionList);
+        return questionList;
+    }
+
+    @CrossOrigin
+    @RequestMapping(method = RequestMethod.POST, value = LIST_ENDPOINT + "/addQuestions")
+    public QuestionList addQuestionToList(@RequestBody QuestionList questionList) {
+
+        QuestionList existingList = this.questionListRepository.findById(questionList.getId()).get();
+
+        List<Question> reqQuestionList = questionList.getList();
+
+        for(Question question : reqQuestionList) {
+            String questionId = question.getId();
+            if(questionId != null && questionId != "") {
+                Question q = this.questionRepository.findById(questionId).get();
+                Optional<Question> question1 = existingList.getList().stream().filter((Question ques) -> q.getId() == ques.getId()).findAny();
+                if(!question1.isPresent()) {
+                    existingList.getList().add(q);
+                }
+            }
+        }
+
+        this.questionListRepository.save(existingList);
         return questionList;
     }
 

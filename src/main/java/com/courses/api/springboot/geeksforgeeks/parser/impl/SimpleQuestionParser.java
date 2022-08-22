@@ -16,6 +16,7 @@ public class SimpleQuestionParser implements BaseParser {
     public String getSolutionDescription(Element document) {
         //DELETE Ad
         document.getElementsByClass("textBasedMannualAds").remove();
+        document.getElementsByClass("textBasedMannualAds_2").remove();
         document.getElementsByClass("code-output-container").remove();
         document.getElementsByAttributeValue("id", "personalNoteDiv").remove();
         document.getElementsByAttributeValue("id", "practiceLinkDiv").remove();

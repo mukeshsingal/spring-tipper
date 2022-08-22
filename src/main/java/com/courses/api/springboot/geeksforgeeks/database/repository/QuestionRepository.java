@@ -1,5 +1,6 @@
 package com.courses.api.springboot.geeksforgeeks.database.repository;
 
+import com.courses.api.springboot.geeksforgeeks.database.model.dao.question.ProgressStatus;
 import com.courses.api.springboot.geeksforgeeks.database.model.dao.question.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,10 @@ public interface QuestionRepository extends JpaRepository<Question, String> {
     List<Question> findByIsFavourite(boolean isFavourite);
 
     boolean existsByTitle(String title);
+
+    long countByTopicTags_Name(String name);
+
+    long countByStatusIsAndTopicTags_Name(ProgressStatus status, String name);
 
     List<Question> findByTitle(String title);
 
