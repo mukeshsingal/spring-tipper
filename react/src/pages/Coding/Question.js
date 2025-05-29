@@ -104,41 +104,30 @@ export default (props) => {
 
 
     return (
-
         <React.Fragment>
-
             <Card bordered={false} >
-
                 <Row gutter={18}>
-                    <Col span={2} className="icons-list">
-                        <Button className={styles.actionbutton} type="primary" onClick={() => window.open("https://www.google.com/search?q=" + data.title, '_blank')}><GoogleOutlined /></Button>
-                        <Button className={styles.actionbutton} type="primary" onClick={() => {
+                    <Col span={16} className="icons-list" style={{display:"flex"}}>
+                        <Button className={styles.action_button} type="primary" onClick={() => {
                             history.goBack()
                         }}><LeftCircleFilled></LeftCircleFilled></Button>
-
-                    </Col>
-                    <Col span={14}>
-                        <div ><h1 style={{ marginTop: "12px" }}><a href={data.problemUrl} target="_blank">{data.title}</a></h1></div>
+                        <Button className={styles.action_button} type="primary" onClick={() => window.open("https://www.google.com/search?q=" + data.title + " geeksforgeeks", '_blank')}><GoogleOutlined /></Button>
+                        <div><h1 style={{ marginTop: "5px",  marginLeft: "10px" }}><a href={data.problemUrl} target="_blank">{data.title}</a></h1></div>
                     </Col>
                     <Col span={8}>
-
-                        <Button className={styles.actionbutton} type="primary" onClick={() => markDeleted()}><DeleteFilled></DeleteFilled></Button>
-
+                        <Button className={styles.action_button} type="primary" onClick={() => markDeleted()}><DeleteFilled></DeleteFilled></Button>
                         {
                             data?.favourite ?
-                                <Button className={styles.actionbutton} type="primary" onClick={() => markFavourite()}><StarFilled></StarFilled></Button>
+                                <Button className={styles.action_button} type="primary" onClick={() => markFavourite()}><StarFilled></StarFilled></Button>
                                 :
-                                <Button className={styles.actionbutton} type="primary" onClick={() => markFavourite()}><StarOutlined></StarOutlined></Button>
+                                <Button className={styles.action_button} type="primary" onClick={() => markFavourite()}><StarOutlined></StarOutlined></Button>
                         }
-
-
                         {
                             data?.status == "DONE" ?
                                 <Button style={{ height: "40px", float: "right", margin: "3px" }} type="primary" onClick={() => markDone()}>Not Done</Button>
                                 :
                                 <Button style={{ height: "40px", float: "right", margin: "3px" }} type="primary" onClick={() => markDone()}>Done</Button>
                         }
-
                     </Col>
                 </Row>
             </Card>
@@ -152,7 +141,7 @@ export default (props) => {
                                 <div dangerouslySetInnerHTML={{ __html: data.problemDescription?.replaceAll("font-size:18px", "") }} />
                             </TabPane>
                             <TabPane tab={<span> Solution</span>} key="2" >
-                                <div dangerouslySetInnerHTML={{ __html: data.solutionDescription?.replaceAll("font-size:18px", "") }} />
+                                <div dangerouslySetInnerHTML={{ __html: data.solutionDescription?.replaceAll("font-size:18px", "") + "<style>.comments{color:#686867!important}.keyword{font-weight:bold;color: #f92672;}.color1{color:#66d9ef;}.string{color:#e6db74;}</style>" }} />
                             </TabPane>
                         </Tabs>
 

@@ -1,10 +1,27 @@
 import { configConsumerProps } from "antd/lib/config-provider";
 
-var host = "http://localhost:8081"
+// var host = "http://localhost:8081"
+var host = ""
 
 class QuestionService {
   async getAll() {
     return fetch(host + "/api/questions", {
+      headers:{
+        "accepts":"application/json"
+    }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        return data;
+      })
+      .catch((error) => {
+        console.log(error);
+        throw error;
+      });
+  }
+  async getAllDone() {
+    return fetch(host + "/api/questions/done", {
       headers:{
         "accepts":"application/json"
     }

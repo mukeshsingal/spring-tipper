@@ -1,0 +1,1 @@
+{"version":3,"file":"jest.config.js","sourceRoot":"","sources":["../../jest.config.js"],"names":[],"mappings":";AAAA,MAAM,CAAC,OAAO,GAAG;IACf,OAAO,EAAE,uBAAuB;IAChC,OAAO,EAAE,KAAK;IACd,eAAe,EAAE,CAAC,uBAAuB,CAAC;IAC1C,OAAO,EAAE;QACP,iDAAiD,EAAE,KAAK;QACxD,YAAY,EAAE,IAAI;KACnB;CACF,CAAC"}

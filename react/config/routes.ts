@@ -18,35 +18,50 @@
       },
     ],
   },
- 
   {
-    path: '/coding',
-    name: 'Coding',
-    icon: 'apartment',
+    path: '/questions',
+    name: 'Questions',
+    icon: 'code',
     routes: [
       {
-        path: '/coding/question/:id',
+        path: '/questions/all',
+        name: 'All Questions',
+        component: './Coding/QuestionsAll',
+      },
+      {
+        path: '/questions/question/:id',
         component: './Coding/Question',
       },
       {
-        path: '/coding/datastructure',
-        name: 'Data Structures',
-        component: './Coding/DataStructure',
+        path: '/questions/completed',
+        name: 'Completed Questions',
+        component: './Coding/QuestionDone',
       },
       {
-        path: '/coding/datastructure/:id',
-        component: './Coding/DataStructure',
-      },
-    
+        path: '/questions/favorite',
+        name: 'Favorite Questions',
+        component: './Coding/Favorite',
+      }
+    ]
+  },
+  { 
+    path: "/solutions", 
+    name: 'Solutions',
+    icon: 'block',
+    routes: [
       {
-        path: '/coding/questions',
-        name: 'All',
-        component: './Coding/All',
+        path: '/solutions/all',
+        name: 'All Solutions',
+        component: './Coding/SolutionAll',
       },
       {
-        path: '/coding/favourite',
-        name: 'Favorite',
-        component: './Coding/Favourite',
+        path: '/solutions/solution/:id',
+        component: './Coding/Solution',
+      },
+      {
+        path: '/solutions/completed',
+        name: 'Completed',
+        component: './Coding/SolutionsDone',
       }
     ]
   },
@@ -86,31 +101,32 @@
     path: '/',
     redirect: '/Coding/questions',
   },
-  {
-    component: './404',
-  },
-  {
-    path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
-    component: './Welcome',
-  },
-  {
-    path: '/admin',
-    name: 'admin',
-    icon: 'crown',
-    access: 'canAdmin',
-    component: './Admin',
-    routes: [
-      {
-        path: '/admin/sub-page',
-        name: 'sub-page',
-        icon: 'smile',
-        component: './Welcome',
-      },
-      {
-        component: './404',
-      },
-    ],
-  },
 ];
+
+// {
+//   component: './404',
+// },
+// {
+//   path: '/welcome',
+//   name: 'welcome',
+//   icon: 'smile',
+//   component: './Welcome',
+// },
+// {
+//   path: '/admin',
+//   name: 'admin',
+//   icon: 'crown',
+//   access: 'canAdmin',
+//   component: './Admin',
+//   routes: [
+//     {
+//       path: '/admin/sub-page',
+//       name: 'sub-page',
+//       icon: 'smile',
+//       component: './Welcome',
+//     },
+//     {
+//       component: './404',
+//     },
+//   ],
+// },

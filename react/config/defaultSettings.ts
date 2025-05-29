@@ -13,7 +13,7 @@ const Settings: LayoutSettings & {
   fixSiderbar: true,
   footerRender: false,
   colorWeak: false,
-  title: 'Jumbotail',
+  title: 'Welcome',
   splitMenus: false,
   pwa: false,
   logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',

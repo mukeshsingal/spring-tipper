@@ -1,6 +1,6 @@
 import { configConsumerProps } from "antd/lib/config-provider";
 
-var host = "http://localhost:8081"
+var host = ""
 
 class CompanyService {
 

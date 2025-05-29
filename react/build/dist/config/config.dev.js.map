@@ -1,0 +1,1 @@
+{"version":3,"file":"config.dev.js","sourceRoot":"","sources":["../../../config/config.dev.ts"],"names":[],"mappings":"AAAA,4BAA4B;AAC5B,OAAO,EAAE,YAAY,EAAE,MAAM,KAAK,CAAC;AAEnC,eAAe,YAAY,CAAC;IAC1B,OAAO,EAAE;QACP,gDAAgD;QAChD,iDAAiD;KAClD;IACD,uEAAuE;IACvE,eAAe,EAAE;QACf,OAAO,EAAE,EAAE;QACX,YAAY,EAAE,EAAE;QAChB,YAAY,EAAE,EAAE;KACjB;CACF,CAAC,CAAC"}
